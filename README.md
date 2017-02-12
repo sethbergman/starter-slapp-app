@@ -1,5 +1,7 @@
 # starter-slapp-app
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/sethbergman/starter-slapp-app.svg)](https://greenkeeper.io/)
+
 This repository is meant as an example and starting point for building a Slack app on [Beep Boop][bb].  It's written in [node.js](), uses the [Slapp][slapp] library, and takes advantage of the [Slack Events API][slack-events-api].
 
 ## Setup Instructions
