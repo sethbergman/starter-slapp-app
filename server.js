@@ -15,7 +15,6 @@ var slapp = Slapp({
   context: Context()
 })
 
-
 var HELP_TEXT = `
 I will respond to the following messages:
 \`help\` - to see this message.
@@ -25,9 +24,9 @@ I will respond to the following messages:
 \`attachment\` - to see a Slack attachment message.
 `
 
-//*********************************************
+// *********************************************
 // Setup different handlers for messages
-//*********************************************
+// *********************************************
 
 // response to the user typing "help"
 slapp.message('help', ['mention', 'direct_message'], (msg) => {
