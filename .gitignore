@@ -39,3 +39,6 @@ jspm_packages
 yarn.lock
 
 .env
+
+.db
+components/routes/_*
