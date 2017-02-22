@@ -5,6 +5,7 @@ const Slapp = require('slapp')
 const ConvoStore = require('slapp-convo-beepboop')
 const Context = require('slapp-context-beepboop')
 
+
 // use `PORT` env var on Beep Boop - default to 3000 locally
 var port = process.env.PORT || 3000
 
@@ -15,7 +16,6 @@ var slapp = Slapp({
   context: Context()
 })
 
-
 var HELP_TEXT = `
 I will respond to the following messages:
 \`help\` - to see this message.
@@ -25,9 +25,9 @@ I will respond to the following messages:
 \`attachment\` - to see a Slack attachment message.
 `
 
-//*********************************************
+//* ********************************************
 // Setup different handlers for messages
-//*********************************************
+//* ********************************************
 
 // response to the user typing "help"
 slapp.message('help', ['mention', 'direct_message'], (msg) => {
