@@ -26,7 +26,7 @@ I will respond to the following messages:
 `
 
 //* ********************************************
-// Setup different handlers for messages
+//  Setup different handlers for messages
 //* ********************************************
 
 // response to the user typing "help"
