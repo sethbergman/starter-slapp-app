@@ -61,7 +61,7 @@ slapp
       .say(`Ok then. What's your favorite programming language?`)
       .route('colors', state)
   })
-  .route('language', (msg, state) => {
+  .route('colors', (msg, state) => {
     var text = (msg.body.event && msg.body.event.text) || ''
 
     // user may not have typed text as their next action, ask again and re-route
