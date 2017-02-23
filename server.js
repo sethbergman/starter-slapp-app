@@ -12,7 +12,7 @@ var port = process.env.PORT || 3000
 var slapp = Slapp({
   // Beep Boop sets the SLACK_VERIFY_TOKEN env var
   verify_token: process.env.SLACK_VERIFY_TOKEN,
-  response_url: process.env.INCOMING_WEBHOOK_URL,
+  // response_url: process.env.INCOMING_WEBHOOK_URL,
   convo_store: ConvoStore(),
   context: Context()
 })
@@ -114,10 +114,10 @@ slapp.message('.*', ['direct_mention', 'direct_message'], (msg) => {
   }
 })
 
-slapp.command('ncmd', 'create (.*)'(msg, text, name) => {
-  text = []
-  name = []
-}
+// slapp.command('ncmd', 'create (.*)'(msg, text, name) => {
+//   text = this.text,
+//   name = this.name
+// }
 
 
 // attach Slapp to express server
