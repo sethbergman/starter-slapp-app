@@ -12,6 +12,7 @@ var port = process.env.PORT || 3000
 var slapp = Slapp({
   // Beep Boop sets the SLACK_VERIFY_TOKEN env var
   verify_token: process.env.SLACK_VERIFY_TOKEN,
+  response_url: process.env.INCOMING_WEBHOOK_URL,
   convo_store: ConvoStore(),
   context: Context()
 })
@@ -57,21 +58,21 @@ slapp
     state.status = text
 
     msg
-      .say(`Ok then. What's your favorite color?`)
-      .route('color', state)
+      .say(`Ok then. What's your favorite programming language?`)
+      .route('language', state)
   })
-  .route('color', (msg, state) => {
+  .route('language', (msg, state) => {
     var text = (msg.body.event && msg.body.event.text) || ''
 
     // user may not have typed text as their next action, ask again and re-route
     if (!text) {
       return msg
-        .say("I'm eagerly awaiting to hear your favorite color.")
-        .route('color', state)
+        .say("I'm eagerly awaiting to hear your favorite programming language.")
+        .route('language', state)
     }
 
     // add their response to state
-    state.color = text
+    state.language = text
 
     msg
       .say('Thanks for sharing.')
@@ -112,6 +113,12 @@ slapp.message('.*', ['direct_mention', 'direct_message'], (msg) => {
     msg.say([':wave:', ':pray:', ':raised_hands:'])
   }
 })
+
+slapp.command('ncmd', 'create (.*)'(msg, text, name) => {
+  text = []
+  name = []
+}
+
 
 // attach Slapp to express server
 var server = slapp.attachToExpress(express())
