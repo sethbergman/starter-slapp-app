@@ -114,8 +114,8 @@ slapp.message('.*', ['direct_mention', 'direct_message'], (msg) => {
   }
 })
 
-slapp.command('acommand', (msg) => {
-}
+// slapp.command('acommand', (msg) => {
+// }
 
 //slapp.attachToExpress(app)
 // attach Slapp to express server
