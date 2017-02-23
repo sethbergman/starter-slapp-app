@@ -59,7 +59,7 @@ slapp
 
     msg
       .say(`Ok then. What's your favorite programming language?`)
-      .route('language', state)
+      .route('colors', state)
   })
   .route('language', (msg, state) => {
     var text = (msg.body.event && msg.body.event.text) || ''
@@ -68,11 +68,11 @@ slapp
     if (!text) {
       return msg
         .say("I'm eagerly awaiting to hear your favorite programming language.")
-        .route('language', state)
+        .route('colors', state)
     }
 
     // add their response to state
-    state.language = text
+    state.colors = text
 
     msg
       .say('Thanks for sharing.')
@@ -114,12 +114,10 @@ slapp.message('.*', ['direct_mention', 'direct_message'], (msg) => {
   }
 })
 
-// slapp.command('ncmd', 'create (.*)'(msg, text, name) => {
-//   text = this.text,
-//   name = this.name
-// }
+slapp.command('acommand', (msg) => {
+}
 
-
+//slapp.attachToExpress(app)
 // attach Slapp to express server
 var server = slapp.attachToExpress(express())
 
