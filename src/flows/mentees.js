@@ -28,11 +28,11 @@ module.exports = (app) => {
 
     if (message.text){
            let mentees = [];
-           let assignedFilter = message.text;
+           //let assignedFilter = message.text;
            new Promise( ( resolve, reject ) => {
              base('Mentees').select({
                view: 'Without Mentors',
-               filterByFormula: `SEARCH("${assignedFilter}", {Assigned?}) === ''`
+               //filterByFormula: `SEARCH("${assignedFilter}", {Assigned?}) === ''`
               }).firstPage(function(err, records) {
                  if (err) { console.error(err); reject( err ); }
 
