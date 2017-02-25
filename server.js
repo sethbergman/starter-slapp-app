@@ -7,6 +7,44 @@ const BeepBoopPersist = require('beepboop-persist')
 const Chronos = require('./src/chronos')
 const config = require('./src/config').validate()
 
+// const Airtable = require('airtable')
+// Airtable.configure({
+//     endpointUrl: 'https://api.airtable.com',
+//     apiKey: process.env.AIRTABLE_API_KEY,
+//     base: process.env.AIRTABLE_BASE
+// })
+
+
+
+// base('Mentees').select({
+//     view: "Without Mentors",
+//     fields: "Assigned?"
+// }).eachPage(function page(records, fetchNextPage) {
+//     // This function (`page`) will get called for each page of records.
+//
+//     records.forEach(function(record) {
+//         console.log('Retrieved', record.get('Slack User'));
+//     });
+//
+//     // To fetch the next page of records, call `fetchNextPage`.
+//     // If there are more records, `page` will get called again.
+//     // If there are no more records, `done` will get called.
+//     fetchNextPage();
+//
+// }, function done(err) {
+//     if (err) { console.error(err); return; }
+// });
+//
+// base('Mentees').select({
+//     view: 'Main View'
+// }).firstPage(function(err, records) {
+//     if (err) { console.error(err); return; }
+//     records.forEach(function(record) {
+//         console.log('Retrieved', record.get('Slack User'));
+//     });
+// });
+
+
 var slapp = Slapp({
   verify_token: config.slack_verify_token,
   log: config.slapp_log,
