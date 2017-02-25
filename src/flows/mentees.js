@@ -9,19 +9,22 @@ module.exports = (app) => {
   })
 
   slapp.command('/mentees', /.*/, (msg) => {
-    var lines = msg.body.text.split(os.EOL).map((it) => { return it.trim() })
+    // var lines = msg.body.text.split(os.EOL).map((it) => { return it.trim() })
 
-    base('Mentees').select({
-        view: "Without Mentors",
-        fields: "Assigned?"
-    }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
-
-        records.forEach(function(record) {
-            console.log('Retrieved', record.get('Slack User'))
-        })
-
-        fetchNextPage()
+    // base('Mentees').select({
+    //     view: "Without Mentors",
+    //     fields: "Assigned?"
+    // }).eachPage(function page(records, fetchNextPage) {
+    //     // This function (`page`) will get called for each page of records.
+    //
+    //     records.forEach(function(record) {
+    //         console.log('Retrieved', record.get('Slack User'))
+    //     })
+    //
+    //     fetchNextPage()
+    //     function done(err) {
+    //       if (err) { console.error(err); return; }
+    //     }
 
     if (message.text){
            let mentees = [];
@@ -29,7 +32,7 @@ module.exports = (app) => {
            new Promise( ( resolve, reject ) => {
              base('Mentees').select({
                view: 'Without Mentors',
-               filterByFormula: `SEARCH("${assignedFilter}", {unassigned}) === ''`
+               filterByFormula: `SEARCH("${assignedFilter}", {Assigned?}) === ''`
               }).firstPage(function(err, records) {
                  if (err) { console.error(err); reject( err ); }
 
@@ -40,11 +43,7 @@ module.exports = (app) => {
 
                  resolve( mentees )
              })
-           }).then( mentees => msg.respond(message, '*Mentees without ' +assignedFilter+ ':*\n' + mentees.join("\n")))
-           }
-           function done(err) {
-             if (err) { console.error(err); return; }
-        }
+           }).then( mentees => msg.respond(message, '*Mentees ' +assignedFilter+ ':*\n' + mentees.join("\n")))
+      }
     })
-  })
-}
+  }
