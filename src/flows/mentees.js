@@ -29,7 +29,7 @@ module.exports = (app) => {
            new Promise( ( resolve, reject ) => {
              base('Mentees').select({
                view: 'Without Mentors',
-               filterByFormula: `SEARCH("${assignedFilter}", {Assigned?}) === false`
+               filterByFormula: `SEARCH("${assignedFilter}", {unassigned}) === ''`
               }).firstPage(function(err, records) {
                  if (err) { console.error(err); reject( err ); }
 
