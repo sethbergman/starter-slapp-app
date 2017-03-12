@@ -7,12 +7,12 @@ const BeepBoopPersist = require('beepboop-persist')
 const Chronos = require('./src/chronos')
 const config = require('./src/config').validate()
 
-// const Airtable = require('airtable')
-// Airtable.configure({
-//     endpointUrl: 'https://api.airtable.com',
-//     apiKey: process.env.AIRTABLE_API_KEY,
-//     base: process.env.AIRTABLE_BASE
-// })
+const Airtable = require('airtable')
+Airtable.configure({
+    endpointUrl: 'https://api.airtable.com',
+    apiKey: process.env.AIRTABLE_API_KEY,
+    base: process.env.AIRTABLE_BASE
+})
 
 
 
