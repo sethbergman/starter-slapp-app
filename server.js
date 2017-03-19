@@ -7,10 +7,83 @@ const Context = require('slapp-context-beepboop')
 
 // use `PORT` env var on Beep Boop - default to 3000 locally
 var port = process.env.PORT || 3000
+var dashbot = require('dashbot')(process.env.DASHBOT_API_KEY).slack
+
+require('env2')('.env')
+var Botkit = require('botkit'),
+    mongoStorage = require('botkit-storage-mongo')({mongoUri: process.env.MONGOLAB_URI}),
+    controller = Botkit.slackbot({
+        storage: mongoStorage
+    });
+var BeepBoop = require('beepboop-botkit')
+var beepboop = BeepBoop.start(controller)
+
+// listen for botkit controller events
+controller.on('bot_channel_join', function (bot, message) {
+  bot.reply(message, 'I\'m here!')
+})
+
+// Optionally you may want to listen to beepboop events
+beepboop.on('add_resource', function (msg) {
+  console.log('received request to add bot to team')
+})
+
+beepboop.on('add_resource', function (message) {
+  Object.keys(beepboop.workers).forEach(function (id) {
+    // this is an instance of a botkit worker
+    var bot = beepboop.workers[id]
+  })
+})
+
+
+/* Airtable Setup */
+var Airtable = require('airtable');
+var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY})
+.base(process.env.AIRTABLE_BASE);
+
+/* Grab authentication info from env vars */
+if (!process.env.SLACK_CLIENT_ID || !process.env.SLACK_CLIENT_SECRET || !process.env.PORT || !process.env.SLACK_VERIFY_TOKEN) {
+    console.log('Error: Specify CLIENT_ID, CLIENT_SECRET, VERIFICATION_TOKEN and PORT in environment');
+    process.exit(1);
+}
+
+var config = {}
+if (process.env.MONGOLAB_URI) {
+    var BotkitStorage = require('botkit-storage-mongo');
+    config = {
+        storage: BotkitStorage({mongoUri: process.env.MONGOLAB_URI}),
+    };
+} else {
+    config = {
+        json_file_store: './db_octobotdb.json/',
+    };
+}
+
+
+var controller = Botkit.slackbot(config).configureSlackApp(
+    {
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        studio_token: process.env.STUDIO_TOKEN,
+        scopes: ['bot', 'commands', 'reactions:write', 'incoming-webhook'],
+    }
+);
+
+controller.setupWebserver(process.env.PORT, function (err, webserver) {
+    controller.createWebhookEndpoints(controller.webserver);
+
+    controller.createOauthEndpoints(controller.webserver, function (err, req, res) {
+        if (err) {
+            res.status(500).send('ERROR: ' + err);
+        } else {
+            res.send('Success!');
+        }
+    });
+});
 
 var slapp = Slapp({
   // Beep Boop sets the SLACK_VERIFY_TOKEN env var
-  verify_token: process.env.SLACK_VERIFY_TOKEN,
+  verify_token: process.env.SLACK_API_TOKEN,
   convo_store: ConvoStore(),
   context: Context()
 })

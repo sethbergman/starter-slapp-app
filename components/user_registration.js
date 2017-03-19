@@ -32,7 +32,7 @@ module.exports = function(controller) {
                 app_token: payload.access_token,
             };
 
-            var testbot = controller.spawn(team.bot);
+            var octobot = controller.spawn(team.bot);
 
             testbot.api.auth.test({}, function(err, bot_auth) {
                 if (err) {
@@ -46,14 +46,91 @@ module.exports = function(controller) {
 
                     // Replace this with your own database!
 
+
+                    var Store = require('jfs');
+
+            module.exports = function(config) {
+
+                if (!config) {
+                    config = {
+                        path: './',
+                    };
+                }
+
+                var teams_db = new Store(config.path + '/teams', {saveId: 'id'});
+                var users_db = new Store(config.path + '/users', {saveId: 'id'});
+                var channels_db = new Store(config.path + '/channels', {saveId: 'id'});
+
+                var objectsToList = function(cb) {
+                    return function(err, data) {
+                        if (err) {
+                            cb(err, data);
+                        } else {
+                            cb(err, Object.keys(data).map(function(key) {
+                                return data[key];
+                            }));
+                        }
+                    };
+                };
+
+                var storage = {
+                    teams: {
+                        get: function(team_id, cb) {
+                            teams_db.get(team_id, cb);
+                        },
+                        save: function(team_data, cb) {
+                            teams_db.save(team_data.id, team_data, cb);
+                        },
+                        delete: function(team_id, cb) {
+                            teams_db.delete(team_id.id, cb);
+                        },
+                        all: function(cb) {
+                            teams_db.all(objectsToList(cb));
+                        }
+                    },
+                    users: {
+                        get: function(user_id, cb) {
+                            users_db.get(user_id, cb);
+                        },
+                        save: function(user, cb) {
+                            users_db.save(user.id, user, cb);
+                        },
+                        delete: function(user_id, cb) {
+                            users_db.delete(user_id.id, cb);
+                        },
+                        all: function(cb) {
+                            users_db.all(objectsToList(cb));
+                        }
+                    },
+                    channels: {
+                        get: function(channel_id, cb) {
+                            channels_db.get(channel_id, cb);
+                        },
+                        save: function(channel, cb) {
+                            channels_db.save(channel.id, channel, cb);
+                        },
+                        delete: function(channel_id, cb) {
+                            channels_db.delete(channel_id.id, cb);
+                        },
+                        all: function(cb) {
+                            channels_db.all(objectsToList(cb));
+                        }
+                    }
+                };
+
+                return storage;
+            };
+
+
+
                     controller.storage.teams.save(team, function(err, id) {
                         if (err) {
                             debug('Error: could not save team record:', err);
                         } else {
                             if (new_team) {
-                                controller.trigger('create_team', [testbot, team]);
+                                controller.trigger('create_team', [octobot, team]);
                             } else {
-                                controller.trigger('update_team', [testbot, team]);
+                                controller.trigger('update_team', [octobot, team]);
                             }
                         }
                     });
