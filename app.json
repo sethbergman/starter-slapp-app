@@ -1,0 +1,20 @@
+{
+  "name": "octobot",
+  "description": "An eight armed chat bot with magical powers",
+  "repository": "https://github.com/sethbergman/starter-slapp-app",
+  "keywords": ["node", "bots", "slack","botkit"],
+  "website": "https://octobot.herokuapp.com/",
+  "success_url":"/login",
+  "env": {
+      "clientId": {
+          "description": "process.env.SLACK_CLIENT_ID",
+      },
+      "clientSecret": {
+          "description": "process.env.SLACK_CLIENT_SECRET"
+      },
+      "studio_token": {
+          "description": "process.env.STUDIO_TOKEN",
+          "required": false
+      }
+  }
+}
