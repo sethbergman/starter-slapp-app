@@ -40,9 +40,10 @@ yarn.lock
 
 .env
 .env.js
-.env.sh
+config.env.sh
 *.env*
 config
+build.sh
 
 .db
 components/routes/_*

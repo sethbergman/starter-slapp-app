@@ -34,15 +34,15 @@ module.exports = function(controller) {
 
             var octobot = controller.spawn(team.bot);
 
-            testbot.api.auth.test({}, function(err, bot_auth) {
+            octobot.api.auth.test({}, function(err, bot_auth) {
                 if (err) {
                     debug('Error: could not authenticate bot user', err);
                 } else {
                     team.bot.name = bot_auth.user;
 
                     // add in info that is expected by Botkit
-                    testbot.identity = bot_auth;
-                    testbot.team_info = team;
+                    octobot.identity = bot_auth;
+                    octobot.team_info = team;
 
                     // Replace this with your own database!
 
