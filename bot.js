@@ -36,7 +36,7 @@ if (!process.env.SLACK_CLIENT_ID || !process.env.SLACK_CLIENT_SECRET || !process
     process.exit(1);
 }
 
-var config = require('./.env');
+var config = require(ENV_BIN_PATH);
 if (process.env.MONGOLAB_URI) {
     var BotkitStorage = require('botkit-storage-mongo');
     config = {
@@ -91,9 +91,9 @@ var dashbot = require('dashbot')(process.env.DASHBOT_API_KEY).slack;
 //     json_file_store: __dirname + '/.db/' // store user data in a simple JSON format
 // });
 
-const controller = Botkit.slackbot(.env);
-
-controller.configureSlackApp(...);
+// const controller = Botkit.slackbot();
+//
+// controller.configureSlackApp(...);
 
 // Add the dashbot middleware
 controller.middleware.receive.use(dashbot.receive);

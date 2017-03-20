@@ -9,7 +9,7 @@ const Context = require('slapp-context-beepboop')
 var port = process.env.PORT || 3000
 var dashbot = require('dashbot')(process.env.DASHBOT_API_KEY).slack
 
-require('env2')('.env')
+//require().config;
 var Botkit = require('botkit'),
     mongoStorage = require('botkit-storage-mongo')({mongoUri: process.env.MONGOLAB_URI}),
     controller = Botkit.slackbot({

@@ -46,4 +46,7 @@ config
 build.sh
 
 .db
-components/routes/_*
+# components/routes/_*
+
+
+config
