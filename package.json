@@ -18,7 +18,7 @@
   "homepage": "https://github.com/BeepBoopHQ/starter-slapp-app#readme",
   "dependencies": {
     "body-parser": "^1.15.2",
-    "botkit": "^0.4",
+    "botkit": "^0.5.5",
     "botkit-storage-mongo": "^1.0.4",
     "dashbot": "^0.7.8",
     "debug": "^2.3.3",
